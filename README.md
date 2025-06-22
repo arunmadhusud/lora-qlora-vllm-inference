@@ -2,7 +2,27 @@
 
 This repository contains code for fine-tuning a 4-bit quantized Qwen2-VL model on the [LaTeX_OCR](https://huggingface.co/datasets/unsloth/LaTeX_OCR) dataset using the LoRA techniques and serving it efficiently with vLLM.
 
-## Fine-tuning Approaches: 
+## Quantization:
+
+GPTQ Quantization: We will use the [GPTQModel](https://github.com/ModelCloud/GPTQModel) for quantizing the model weights to 4-bit GPTQ format. 
+NF4 Quantization: We don't need to quantize the model weights seperately using a Calibration dataset, as the model can be directly loaded in 4-bit NF4 format using the Unsloth library.
+
+### Installation for GPTQ Quantization:
+```bash
+# Clone and install GPTQModel
+git clone https://github.com/ModelCloud/GPTQModel.git
+cd GPTQModel
+pip install -v . --no-build-isolation
+
+# Install additional dependencies
+pip install optimum qwen_vl_utils
+pip install -U datasets huggingface_hub fsspec
+
+# Optional (if you're planning to use vLLM for inference)
+pip install vLLM
+```
+
+## Fine-tuning Approaches:
 
 We explore two approaches to fine-tuning:
 
